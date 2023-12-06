@@ -10,5 +10,7 @@ enum NYLTooltipPosition {
   leftStart,
   leftEnd,
   leftMost,
-  topMost
+  topMost,
+  rightMost,
+  endMost
 }

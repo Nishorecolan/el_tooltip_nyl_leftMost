@@ -123,7 +123,19 @@ class NYLTooltipOverlayState extends State<NYLTooltipOverlay> {
               child: Bubble(
                 triggerBox: widget.triggerBox,
                 padding: widget.padding,
-                radius: widget.toolTipElementsDisplay.position == NYLTooltipPosition.leftMost || widget.toolTipElementsDisplay.position == NYLTooltipPosition.topMost ? BorderRadius.all(Radius.circular(0)) : widget.toolTipElementsDisplay.radius,
+                radius: widget.toolTipElementsDisplay.position == NYLTooltipPosition.leftMost ||
+                        widget.toolTipElementsDisplay.position == NYLTooltipPosition.topMost ||
+                        widget.toolTipElementsDisplay.position == NYLTooltipPosition.endMost ||
+                        widget.toolTipElementsDisplay.position == NYLTooltipPosition.rightMost
+                    ?  BorderRadius.only(
+                        bottomRight: Radius.circular(widget.toolTipElementsDisplay.position == NYLTooltipPosition.endMost ? 0 :8),
+                        bottomLeft: Radius.circular(
+                            widget.toolTipElementsDisplay.position == NYLTooltipPosition.leftMost
+                                || widget.toolTipElementsDisplay.position == NYLTooltipPosition.rightMost ? 8 : 0),
+                        topRight: Radius.circular(widget.toolTipElementsDisplay.position == NYLTooltipPosition.rightMost ? 0 : 8),
+                        topLeft: Radius.circular(widget.toolTipElementsDisplay.position == NYLTooltipPosition.leftMost ? 0 : 8),
+                      )
+                    : widget.toolTipElementsDisplay.radius,
                 color: widget.color,
                 child: widget.content,
               ),
@@ -137,6 +149,8 @@ class NYLTooltipOverlayState extends State<NYLTooltipOverlay> {
                   ? widget.toolTipElementsDisplay.arrow.y - 0.5
                   : widget.toolTipElementsDisplay.position == NYLTooltipPosition.topMost
                   ? widget.toolTipElementsDisplay.arrow.y + 0.2
+                  : widget.toolTipElementsDisplay.position == NYLTooltipPosition.endMost
+                  ? widget.toolTipElementsDisplay.arrow.y
                   : widget.toolTipElementsDisplay.arrow.y - 20,
               // left: widget.longTailPosition == 'Right'
               //     ? widget.toolTipElementsDisplay.arrow.x - 19.3
@@ -146,6 +160,10 @@ class NYLTooltipOverlayState extends State<NYLTooltipOverlay> {
                   ? widget.toolTipElementsDisplay.arrow.x - 19.3
                   : widget.toolTipElementsDisplay.position == NYLTooltipPosition.leftMost
                   ? widget.toolTipElementsDisplay.arrow.x - 113
+                  : widget.toolTipElementsDisplay.position == NYLTooltipPosition.rightMost
+                  ? widget.toolTipElementsDisplay.arrow.x + 92
+                  : widget.toolTipElementsDisplay.position == NYLTooltipPosition.endMost
+                  ? widget.toolTipElementsDisplay.arrow.x + 93
                   : widget.toolTipElementsDisplay.position == NYLTooltipPosition.topMost
                   ? widget.toolTipElementsDisplay.arrow.x - 122
                   : widget.longTailPosition == 'Center'

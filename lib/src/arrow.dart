@@ -63,6 +63,15 @@ class Arrow extends StatelessWidget {
       case NYLTooltipPosition.leftMost:
         scaleY = -1;
         break;
+      case NYLTooltipPosition.rightMost:
+        scaleX = -1;
+        scaleY = -1;
+        break;
+      case NYLTooltipPosition.endMost:
+        scaleX = -1;
+      //   scaleY = -1;
+      // quarterTurns = 2;
+        break;
     }
 
     return Transform.scale(

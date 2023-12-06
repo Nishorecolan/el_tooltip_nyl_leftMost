@@ -56,7 +56,7 @@ class PositionManager {
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: triggerBox.x + _half(triggerBox.w) - _half(overlayBox.w),
+        x: triggerBox.x + _half(triggerBox.w) - _half(overlayBox.w) ,
         y: triggerBox.y - overlayBox.h - distance - arrowBox.h,
       ),
       position: NYLTooltipPosition.topCenter,
@@ -134,6 +134,7 @@ class PositionManager {
   }
 
   ToolTipElementsDisplay _bottomEnd() {
+    print('calling bottomend');
     return ToolTipElementsDisplay(
       arrow: ElementBox(
         w: overlayBox.w,
@@ -295,11 +296,51 @@ class PositionManager {
     );
   }
 
+  ToolTipElementsDisplay _rightMost() {
+    return ToolTipElementsDisplay(
+      arrow: ElementBox(
+        w: arrowBox.w,
+        h: arrowBox.h,
+        x: (triggerBox.x + _half(triggerBox.w) - _half(arrowBox.w)).ceilToDouble(),
+        y: (triggerBox.y + triggerBox.h + distance).ceilToDouble(),
+      ),
+      bubble: ElementBox(
+        w: overlayBox.w,
+        h: overlayBox.h,
+        x: triggerBox.x + _half(triggerBox.w) - _half(overlayBox.w) - 30,
+        y: triggerBox.y + triggerBox.h + distance + arrowBox.h-.05,
+      ),
+      position: NYLTooltipPosition.rightMost,
+      radius: BorderRadius.all(radius),
+    );
+  }
+
+  ToolTipElementsDisplay _endMost() {
+    return ToolTipElementsDisplay(
+      arrow: ElementBox(
+        w: arrowBox.w,
+        h: arrowBox.h,
+        x: (triggerBox.x + _half(triggerBox.w) - _half(arrowBox.w))
+            .floorToDouble(),
+        y: (triggerBox.y - distance - arrowBox.h).floorToDouble(),
+      ),
+      bubble: ElementBox(
+        w: overlayBox.w,
+        h: overlayBox.h,
+        x: triggerBox.x + _half(triggerBox.w) - _half(overlayBox.w) - 30,
+        y: triggerBox.y - overlayBox.h - distance - arrowBox.h,
+      ),
+      position: NYLTooltipPosition.endMost,
+      radius: BorderRadius.all(radius),
+    );
+  }
+
   double _half(double size) {
     return size * 0.5;
   }
 
   bool _fitsScreen(ToolTipElementsDisplay el) {
+    print('x y axis ${el.bubble.x} ${el.bubble.y}');
     if (el.bubble.x > 0 &&
         el.bubble.x + el.bubble.w < screenSize.w &&
         el.bubble.y > 35 &&
@@ -309,7 +350,8 @@ class PositionManager {
     return false;
   }
 
-  ToolTipElementsDisplay _firstAvailablePosition() {
+  ToolTipElementsDisplay _firstAvailablePosition(preferredPosition) {
+    print('passed position $preferredPosition');
     List<ToolTipElementsDisplay Function()> positions = [
       _topCenter,
       _bottomCenter,
@@ -319,9 +361,17 @@ class PositionManager {
       _bottomStart,
       _bottomEnd,
       _leftMost,
-      _topMost
+      _rightMost,
+      //_endMost,
+      //_topMost
     ];
     for (var position in positions) {
+      if(preferredPosition == NYLTooltipPosition.leftMost) return _topMost();
+      if(preferredPosition == NYLTooltipPosition.topMost) return _leftMost();
+      if(preferredPosition == NYLTooltipPosition.endMost) return _rightMost();
+      if(preferredPosition == NYLTooltipPosition.rightMost) return _endMost();
+
+      print('fitted ${_fitsScreen(position())}');
       if (_fitsScreen(position())) return position();
     }
     return _topCenter();
@@ -367,6 +417,12 @@ class PositionManager {
       case NYLTooltipPosition.topMost:
         elementPosition = _topMost();
         break;
+      case NYLTooltipPosition.rightMost:
+        elementPosition = _rightMost();
+        break;
+      case NYLTooltipPosition.endMost:
+        elementPosition = _endMost();
+        break;
       default:
         elementPosition = _topCenter();
         break;
@@ -374,6 +430,6 @@ class PositionManager {
 
     return _fitsScreen(elementPosition)
         ? elementPosition
-        : _firstAvailablePosition();
+        : _firstAvailablePosition(preferredPosition);
   }
 }

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'nyl_tooltip.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,6 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
       'For specific details about this coverage, please contact your agent'
       'For specific details about this coverage, please contact your agent'
       'For specific details about this coverage, please contact your agent';
+  // String title = 'Confirmations & Other Correspondence';
+  // String subTitle = 'You will still receive some confirmations via U.S Mail.';
   ScrollController controller = ScrollController();
   NYLTooltip? toolTipVar;
 
@@ -46,7 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final screenWidth  = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
 
     return SafeArea(
         child: GestureDetector(
@@ -81,7 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Column(
                     children: [
-                      SizedBox(height: 20),
+
+                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -91,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
 
-                      Tooltip(message: 'Data', child: Icon(Icons.dangerous)),
+                      const Tooltip(message: 'Data', child: Icon(Icons.dangerous)),
                       Text.rich(TextSpan(children: [
                         const TextSpan(
                             text:
@@ -103,41 +107,34 @@ class _MyHomePageState extends State<MyHomePage> {
                                 '                                                 10                  '
                                 '                                                 10 ONE'),
                         WidgetSpan(
-                            child: buildNYLToolTip(context, longTailPosition: 'Left'))
+                            child: buildNYLToolTip(context,position: NYLTooltipPosition.bottomEnd, longTailPosition: 'Left'))
                       ])),
 
-
-                      SizedBox(height: 400),
-                      GestureDetector(
-                        onTap: () {
-                          print('pressed');
-                          buildNYLToolTip(context);
-                        },
-                        child: Text.rich(
-                          TextSpan(
-                            children: [
-                              const TextSpan(
-                                  text:
-                                      'Contracts issued in any of these states will continue to receive premium notices by U.S Mail '
-                                      'Contracts issued in any of these states will continue to receive premium notices by U.S Mail                      '
-                                      '                                          able                     '
-                                      '                                              to                 '
-                                      '                                                                received          tomorrow    at         '
-                                      '      10                                                                               '
-                                      '      10                   TWO      '),
-                              WidgetSpan(
-                                child: buildNYLToolTip(context,
-                                    longTailPosition: 'Left',
-                                    position: NYLTooltipPosition.leftMost),
-                              ),
-                            ],
-                          ),
+                      const SizedBox(height: 400),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            const TextSpan(
+                                text:
+                                    'Contracts issued in any of these states will continue to receive premium notices by U.S Mail '
+                                    'Contracts issued in any of these states will continue to receive premium notices by U.S Mail                      '
+                                    '                                          able                     '
+                                    '                                              to                 '
+                                    '                                                                received          tomorrow    at         '
+                                    '      10                                                                               '
+                                    '      10                   TWO      '),
+                            WidgetSpan(
+                              child: buildNYLToolTip(context,
+                                  longTailPosition: 'Left',
+                                  position: NYLTooltipPosition.leftMost),
+                            ),
+                          ],
                         ),
                       ),
 
-                      SizedBox(height: 100),
+                      const SizedBox(height: 100),
                       Text.rich(TextSpan(children: [
-                        const TextSpan(
+                         const TextSpan(
                             text:
                                 'Contracts issued in any of these states will continue to receive premium notices by U.S Mail '
                                 'Contracts issued in any of these states will continue to receive premium notices by U.S Mail                      '
@@ -146,10 +143,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                 '                                                  received          tomorrow    at         '
                                 '      10                                               '),
                         WidgetSpan(
-                            child: buildNYLToolTip(context, longTailPosition: 'Right'))
+                            child: buildNYLToolTip(context, longTailPosition: 'Left'))
+
                       ])),
 
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       Text.rich(TextSpan(children: [
                         const TextSpan(
                             text:
@@ -158,12 +156,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                 '                                          able                     '
                                 '                                              to                 '
                                 '                                                  received          tomorrow    at         '
-                                '      10     '),
+                                '        10    '),
                         WidgetSpan(
-                            child: buildNYLToolTip(context))
+                            child: buildNYLToolTip(context, longTailPosition: 'Right'))
                       ])),
 
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       Text.rich(TextSpan(children: [
                          TextSpan(
                           onEnter: (val) {
@@ -178,13 +176,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 '      10                           '
                                 '      10             '
                                 '      10             '
-                                '      10      '
-                                '      10   '),
+                                '      10         '
+                                '      10     '),
                         WidgetSpan(
-                            child: buildNYLToolTip(context, longTailPosition: 'Left'))
+                            child: buildNYLToolTip(context, longTailPosition: 'Right'))
                       ])),
 
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       Text.rich(TextSpan(children: [
                         const TextSpan(
                             text:
@@ -204,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: buildNYLToolTip(context, longTailPosition: 'Right'))
                       ])),
 
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       Text.rich(TextSpan(children: [
                         const TextSpan(
                             text:
@@ -219,12 +217,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 '      10  '
                                 '      10             '
                                 '      10             '
-                                '      10             '
+                               //'      10             '
                                 '      10     '),
                         WidgetSpan(
-                            child: buildNYLToolTip(context, longTailPosition: 'Right'))
+                            child: buildNYLToolTip(context,position: NYLTooltipPosition.rightMost))
                       ])),
-                      SizedBox(height: 50),
+
+                      const SizedBox(height: 50),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -235,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
 
-                      SizedBox(height: 550),
+                      const SizedBox(height: 550),
                     ],
                   ),
                 ),
@@ -258,7 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.only(right: 180.0),
                 child: buildNYLToolTip(context,longTailPosition: "Right"),
-              ),  
+              ),
               buildNYLToolTip(context,
                   position: NYLTooltipPosition.bottomEnd,
                   longTailPosition: 'Right'),
@@ -270,7 +269,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
   }
-
 
   Widget buildNYLToolTip(context,{position, longTailPosition}) {
 
@@ -285,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 10),
             Text(
               title,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
             ),
             const SizedBox(height: 10),
             Text(subTitle),
